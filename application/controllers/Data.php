@@ -8,14 +8,14 @@ class Data extends CI_Controller
 	public function save()
 	{
 		$sensor = [
-			'ph'	=> $this->input->get('pH'),
+			'pH'	=> $this->input->get('pH'),
 			'ppm'	=> $this->input->get('ppm'),
 			'debit'	=> $this->input->get('debit'),
 		];
 
 		if ($sensor) {
 			$data = [
-				'ph'	=> $sensor['ph'],
+				'pH'	=> $sensor['pH'],
 				'ppm'	=> $sensor['ppm'],
 				'debit'	=> $sensor['debit'],
 			];
@@ -23,14 +23,14 @@ class Data extends CI_Controller
 			$this->db->order_by('id', 'desc');
 			$data_sebelumnya = $this->db->get('sensor', 1)->row_array();
 
-			$nilai_sebelumnya = [
-				'nilai_ph'		=> $data_sebelumnya['pH'],
-				'nilai_ppm'		=> $data_sebelumnya['ppm'],
-				'nilai_debit'	=> $data_sebelumnya['debit'],
-			];
-
 			if ($data_sebelumnya) {
-				if ($nilai_sebelumnya['nilai_ph'] != $sensor['ph'] || $nilai_sebelumnya['nilai_ppm'] != $sensor['ppm'] || $nilai_sebelumnya['nilai_debit'] != $sensor['debit']) {
+				$nilai_sebelumnya = [
+					'nilai_pH'		=> $data_sebelumnya['pH'],
+					'nilai_ppm'		=> $data_sebelumnya['ppm'],
+					'nilai_debit'	=> $data_sebelumnya['debit'],
+				];
+
+				if ($nilai_sebelumnya['nilai_pH'] != $sensor['pH'] || $nilai_sebelumnya['nilai_ppm'] != $sensor['ppm'] || $nilai_sebelumnya['nilai_debit'] != $sensor['debit']) {
 					$this->db->insert('sensor', $data);
 					echo 'nilai sensor berhasil masuk db';
 				} else {
