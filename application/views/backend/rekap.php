@@ -8,7 +8,9 @@
                     <tr>
                         <th>#</th>
                         <th>pH Air</th>
+                        <th>Status pH</th>
                         <th>PPM</th>
+                        <th>Kualitas Air</th>
                         <th>Debit Air</th>
                         <th>Date</th>
                         <th>Action</th>
@@ -20,7 +22,9 @@
                         <tr>
                             <td><?= $i++; ?></td>
                             <td>pH <?= $data->pH; ?></td>
+                            <td><span class="badge badge-success"><?= $data->statuspH; ?></span></td>
                             <td><?= $data->ppm; ?> ppm</td>
+                            <td><span class="badge badge-success"><?= $data->statusTds; ?></span></td>
                             <td><?= $data->debit; ?> m3/s</td>
                             <td><?= date('d F Y H:i:s', strtotime($data->date)); ?></td>
                             <td>

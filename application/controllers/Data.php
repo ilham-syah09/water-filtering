@@ -11,6 +11,8 @@ class Data extends CI_Controller
 			'pH'	=> $this->input->get('pH'),
 			'ppm'	=> $this->input->get('ppm'),
 			'debit'	=> $this->input->get('debit'),
+			'statusTds'	=> $this->input->get('statusTds'),
+			'statuspH'	=> $this->input->get('statuspH'),
 		];
 
 		if ($sensor) {
@@ -18,6 +20,8 @@ class Data extends CI_Controller
 				'pH'	=> $sensor['pH'],
 				'ppm'	=> $sensor['ppm'],
 				'debit'	=> $sensor['debit'],
+				'statusTds'	=> $sensor['statusTds'],
+				'statuspH'	=> $sensor['statuspH'],
 			];
 
 			$this->db->order_by('id', 'desc');

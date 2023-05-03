@@ -8,6 +8,7 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             PH AIR</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800" id="ph"></div>
+                        <span id="statuspH"></span>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-user fa-2x text-gray-300"></i>
@@ -24,6 +25,7 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                             PPM</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800" id="ppm"></div>
+                        <span id="statusTds"></span>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-boxes fa-2x text-gray-300"></i>
@@ -107,6 +109,8 @@
                 $('#ph').text(response.data.pH);
                 $('#ppm').text(response.data.ppm);
                 $('#debit').text(response.data.debit);
+                $('#statuspH').text(response.data.statuspH);
+                $('#statusTds').text(response.data.statusTds);
 
                 setTimeout(realtime, 2000)
             }

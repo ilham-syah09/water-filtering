@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Mar 2023 pada 08.05
+-- Waktu pembuatan: 03 Bulan Mei 2023 pada 09.24
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.1
 
@@ -51,11 +51,34 @@ INSERT INTO `admin` (`id`, `name`, `username`, `password`, `image`) VALUES
 
 CREATE TABLE `sensor` (
   `id` int(11) NOT NULL,
-  `pH` int(11) NOT NULL,
+  `pH` float NOT NULL,
+  `statuspH` varchar(15) NOT NULL,
   `ppm` int(11) NOT NULL,
+  `statusTds` varchar(15) NOT NULL,
   `debit` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `sensor`
+--
+
+INSERT INTO `sensor` (`id`, `pH`, `statuspH`, `ppm`, `statusTds`, `debit`, `date`) VALUES
+(1, 0.36, 'baik', 2, 'buruk', 0, '2023-04-09 05:09:02'),
+(2, 1.3, '', 0, '0', 0, '2023-04-09 05:09:04'),
+(3, 1.49, '', 0, '0', 0, '2023-04-09 05:09:06'),
+(4, 1.68, '', 0, '0', 0, '2023-04-09 05:09:09'),
+(5, 1.87, '', 2, '0', 0, '2023-04-09 05:09:11'),
+(6, 2.06, '', 0, '0', 0, '2023-04-09 05:09:13'),
+(7, 2.25, '', 2, '0', 0, '2023-04-09 05:09:19'),
+(8, 2.62, '', 4, '0', 1893, '2023-04-09 05:09:19'),
+(9, 2.81, '', 0, '0', 2520, '2023-04-09 05:09:21'),
+(10, 3, '', 2, '0', 1266, '2023-04-09 05:09:24'),
+(11, 3.19, '', 4, '0', 26, '2023-04-09 05:09:27'),
+(12, 3.38, '', 0, '0', 0, '2023-04-09 05:09:28'),
+(13, 3.57, '', 2, '0', 0, '2023-04-09 05:09:30'),
+(14, 3.76, '', 0, '0', 0, '2023-04-09 05:09:32'),
+(15, 6, 'sangat baik', 300, 'sangat baik', 1000, '2023-04-18 03:00:06');
 
 --
 -- Indexes for dumped tables
@@ -87,7 +110,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `sensor`
 --
 ALTER TABLE `sensor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

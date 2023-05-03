@@ -6,6 +6,7 @@ class M_Admin extends CI_Model
 
     public function getDataSensor()
     {
+        $this->db->order_by('date', 'desc');
         return $this->db->get('sensor')->result();
     }
 }
