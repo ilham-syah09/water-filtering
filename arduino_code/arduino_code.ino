@@ -108,6 +108,54 @@ void loop(void)
   readTDSSensor();
   readWaterFlow();
 
+  lcd.clear();
+
+  if (tdsValue < 300)
+  {
+    Serial.print("Kondisi Air : ");
+    Serial.println(statusTds);
+    
+    lcd.setCursor(0, 2);
+    lcd.print("Kondisi Air :");
+    lcd.setCursor(12, 2);
+    lcd.print("Sangat Baik");
+    lcd.clear();
+    delay(2000);
+  }
+  else if (tdsValue >= 300 && tdsValue <= 600)
+  {
+    lcd.setCursor(0, 2);
+    lcd.print("Kondisi Air :");
+    lcd.setCursor(12, 2);
+    lcd.print("Buruk");
+    lcd.clear();
+    delay(2000);
+  }
+  else if (tdsValue > 600 && tdsValue <= 900)
+  {
+    Serial.print("Kondisi Air : ");
+    Serial.println(statusTds);
+
+    lcd.setCursor(0, 2);
+    lcd.print("Kondisi Air :");
+    lcd.setCursor(12, 2);
+    lcd.print("Buruk");
+    lcd.clear();
+    delay(2000);
+  }
+  else
+  {
+    Serial.print("Kondisi Air : ");
+    Serial.println(statusTds);
+
+    lcd.setCursor(0, 2);
+    lcd.print("Kondisi Air :");
+    lcd.setCursor(12, 2);
+    lcd.print("Sangat Buruk");
+    lcd.clear();
+    delay(2000);
+  }
+
   Serial.println();
 
   Serial.println("Kirim ke nodemcu : " + (String)debit + "#" + (String)tdsValue + "#" + (String)nilaiPH + "#kirim");
