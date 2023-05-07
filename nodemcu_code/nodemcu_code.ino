@@ -8,7 +8,7 @@ ESP8266WiFiMulti WiFiMulti;
 HTTPClient http;
 #define USE_SERIAL Serial
 
-String simpan = "http://192.168.127.185/water-filtering/data/save?pH=";
+String simpan = "http://192.168.156.7/water-filtering/data/save?pH=";
 
 String respon = "";
 
@@ -37,7 +37,7 @@ void setup()
   }
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("ilhamsyah", "12345678"); // Sesuaikan SSID dan password ini
+  WiFiMulti.addAP("hp murah", "12345678"); // Sesuaikan SSID dan password ini
 
   for (int u = 1; u <= 5; u++)
   {

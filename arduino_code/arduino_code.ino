@@ -61,6 +61,8 @@ LiquidCrystal_I2C lcd(0x3F, 20, 4);
 // SCL -> A5
 // SDA -> A4
 
+String displayStatus = "TDS";
+
 void setup(void)
 {
   Serial.begin(115200);
@@ -101,59 +103,24 @@ void loop(void)
 {
   lcd.clear();
 
-  lcd.setCursor(2, 0);
-  lcd.print("WATER FILTERING");
-
   readPHSensor();
   readTDSSensor();
   readWaterFlow();
 
-  lcd.clear();
+  if (displayStatus == "TDS") {
+    lcd.setCursor(0, 3);
+    lcd.print("TDS :");
+    lcd.setCursor(6, 3);
+    lcd.print(statusTds);
 
-  if (tdsValue < 300)
-  {
-    Serial.print("Kondisi Air : ");
-    Serial.println(statusTds);
-    
-    lcd.setCursor(0, 2);
-    lcd.print("Kondisi Air :");
-    lcd.setCursor(12, 2);
-    lcd.print("Sangat Baik");
-    lcd.clear();
-    delay(2000);
-  }
-  else if (tdsValue >= 300 && tdsValue <= 600)
-  {
-    lcd.setCursor(0, 2);
-    lcd.print("Kondisi Air :");
-    lcd.setCursor(12, 2);
-    lcd.print("Buruk");
-    lcd.clear();
-    delay(2000);
-  }
-  else if (tdsValue > 600 && tdsValue <= 900)
-  {
-    Serial.print("Kondisi Air : ");
-    Serial.println(statusTds);
+    displayStatus = "PH";
+  } else {
+    lcd.setCursor(0, 3);
+    lcd.print("PH  :");
+    lcd.setCursor(6, 3);
+    lcd.print(statuspH);
 
-    lcd.setCursor(0, 2);
-    lcd.print("Kondisi Air :");
-    lcd.setCursor(12, 2);
-    lcd.print("Buruk");
-    lcd.clear();
-    delay(2000);
-  }
-  else
-  {
-    Serial.print("Kondisi Air : ");
-    Serial.println(statusTds);
-
-    lcd.setCursor(0, 2);
-    lcd.print("Kondisi Air :");
-    lcd.setCursor(12, 2);
-    lcd.print("Sangat Buruk");
-    lcd.clear();
-    delay(2000);
+    displayStatus = "TDS";
   }
 
   Serial.println();
@@ -164,6 +131,57 @@ void loop(void)
   Serial.println();
 
   delay(2000);
+}
+
+void readPHSensor()
+{
+  static unsigned long samplingTime = millis();
+  static unsigned long printTime = millis();
+  static float pHValue, voltage;
+
+  if (millis() - samplingTime > samplingInterval)
+  {
+    pHArray[pHArrayIndex++] = analogRead(SensorPin);
+    if (pHArrayIndex == ArrayLenth)
+      pHArrayIndex = 0;
+
+    voltage = avergearray(pHArray, ArrayLenth) * 5.0 / 1024;
+    pHValue = 3.5 * voltage + Offset;
+    samplingTime = millis();
+
+    nilaiPH = pHValue;
+  }
+
+  if (millis() - printTime > printInterval) // Every 800 milliseconds, print a numerical, convert the state of the LED indicator
+  {
+    Serial.print("PH AIR: ");
+    Serial.println(pHValue, 2);
+
+    if (pHValue < 6)
+    {
+      statuspH = "KURANG BAIK";
+    }
+    else if (pHValue >= 6 && pHValue <= 9)
+    {
+      statuspH = "AMAN";
+    }
+    else
+    {
+      statuspH = "BURUK";
+    }
+
+    Serial.print("Kondisi PH : ");
+    Serial.println(statuspH);
+
+    lcd.setCursor(0, 0);
+    lcd.print("PH AIR    :");
+    lcd.setCursor(12, 0);
+    lcd.print(pHValue);
+
+    printTime = millis();
+
+    nilaiPH = pHValue;
+  }
 }
 
 void readTDSSensor()
@@ -180,32 +198,27 @@ void readTDSSensor()
 
     if (tdsValue < 300)
     {
-      statusTds = "Sangat%20baik";
-      Serial.print("Kondisi Air : ");
-      Serial.println(statusTds);
+      statusTds = "SANGAT BAIK";
     }
     else if (tdsValue >= 300 && tdsValue <= 600)
     {
-      statusTds = "Baik";
-      Serial.print("Kondisi Air : ");
-      Serial.println(statusTds);
+      statusTds = "BAIK";
     }
     else if (tdsValue > 600 && tdsValue <= 900)
     {
-      statusTds = "Buruk";
-      Serial.print("Kondisi Air : ");
-      Serial.println(statusTds);
+      statusTds = "BURUK";
     }
     else
     {
-      statusTds = "Sangat%20Buruk";
-      Serial.print("Kondisi Air : ");
-      Serial.println(statusTds);
+      statusTds = "SANGAT BURUK";
     }
 
-    lcd.setCursor(0, 2);
+    Serial.print("Kondisi TDS : ");
+    Serial.println(statusTds);
+
+    lcd.setCursor(0, 1);
     lcd.print("TDS       :");
-    lcd.setCursor(12, 2);
+    lcd.setCursor(12, 1);
     lcd.print(tdsValue);
 
     tdsTimer.reset(); // Reset a second timer
@@ -232,64 +245,10 @@ void readWaterFlow()
     Serial.print(int(debit));
     Serial.println(" L/min");
 
-    lcd.setCursor(0, 3);
+    lcd.setCursor(0, 2);
     lcd.print("DEBIT AIR :");
-    lcd.setCursor(12, 3);
+    lcd.setCursor(12, 2);
     lcd.print(int(debit));
-  }
-}
-
-void readPHSensor()
-{
-  static unsigned long samplingTime = millis();
-  static unsigned long printTime = millis();
-  static float pHValue, voltage;
-
-  if (millis() - samplingTime > samplingInterval)
-  {
-    pHArray[pHArrayIndex++] = analogRead(SensorPin);
-    if (pHArrayIndex == ArrayLenth)
-      pHArrayIndex = 0;
-
-    voltage = avergearray(pHArray, ArrayLenth) * 5.0 / 1024;
-    pHValue = 3.5 * voltage + Offset;
-    samplingTime = millis();
-
-    nilaiPH = pHValue;
-  }
-
-  if (millis() - printTime > printInterval) // Every 800 milliseconds, print a numerical, convert the state of the LED indicator
-  {
-    Serial.print("pH value: ");
-    Serial.println(pHValue, 2);
-
-    if (pHValue < 6)
-    {
-      statuspH = "Kurang%20baik";
-      Serial.print("Kondisi Air : ");
-      Serial.println(statuspH);
-    }
-    else if (pHValue >= 6 && pHValue <= 9)
-    {
-      statuspH = "Aman";
-      Serial.print("Kondisi Air : ");
-      Serial.println(statuspH);
-    }
-    else
-    {
-      statuspH = "Buruk";
-      Serial.print("Kondisi Air : ");
-      Serial.println(statuspH);
-    }
-
-    lcd.setCursor(0, 1);
-    lcd.print("PH AIR    :");
-    lcd.setCursor(12, 1);
-    lcd.print(pHValue);
-
-    printTime = millis();
-
-    nilaiPH = pHValue;
   }
 }
 
