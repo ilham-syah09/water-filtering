@@ -22,9 +22,27 @@
                         <tr>
                             <td><?= $i++; ?></td>
                             <td>pH <?= $data->pH; ?></td>
-                            <td><span class="badge badge-success"><?= $data->statuspH; ?></span></td>
+                            <td>
+                                <?php if ($data->statuspH == 'KURANG BAIK') : ?>
+                                    <span class="badge badge-warning"><?= $data->statuspH; ?></span>
+                                <?php elseif ($data->statuspH == 'BAIK') : ?>
+                                    <span class="badge badge-success"><?= $data->statuspH; ?></span>
+                                <?php else : ?>
+                                    <span class="badge badge-danger"><?= $data->statuspH; ?></span>
+                                <?php endif; ?>
+                            </td>
                             <td><?= $data->ppm; ?> ppm</td>
-                            <td><span class="badge badge-success"><?= $data->statusTds; ?></span></td>
+                            <td>
+                                <?php if ($data->statusTds == 'SANGAT BAIK') : ?>
+                                    <span class="badge badge-primary"><?= $data->statusTds; ?></span>
+                                <?php elseif ($data->statusTds == 'BAIK') : ?>
+                                    <span class="badge badge-success"><?= $data->statusTds; ?></span>
+                                <?php elseif ($data->statusTds == 'BURUK') : ?>
+                                    <span class="badge badge-warning"><?= $data->statusTds; ?></span>
+                                <?php else : ?>
+                                    <span class="badge badge-danger"><?= $data->statusTds; ?></span>
+                                <?php endif; ?>
+                            </td>
                             <td><?= $data->debit; ?> m3/s</td>
                             <td><?= date('d F Y H:i:s', strtotime($data->date)); ?></td>
                             <td>
