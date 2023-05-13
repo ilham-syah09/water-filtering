@@ -8,7 +8,7 @@ ESP8266WiFiMulti WiFiMulti;
 HTTPClient http;
 #define USE_SERIAL Serial
 
-String simpan = "http://192.168.156.7/water-filtering/data/save?pH=";
+String simpan = "http://waterfiltering.phbcomputerc.my.id/data/save?pH=";
 
 String respon = "";
 

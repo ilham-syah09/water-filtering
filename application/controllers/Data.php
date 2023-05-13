@@ -8,21 +8,21 @@ class Data extends CI_Controller
 	public function save()
 	{
 		if ($this->input->get('pH') < 6) {
-			$statuspH = "KURANG BAIK";
+			$statuspH = "BURUK";
 		} else if ($this->input->get('pH') >= 6 && $this->input->get('pH') <= 9) {
 			$statuspH = "AMAN";
 		} else {
-			$statuspH = "BURUK";
+			$statuspH = "TIDAK AMAN";
 		}
 
 		if ($this->input->get('ppm') < 300) {
-			$statusTds = "SANGAT BAIK";
-		} else if ($this->input->get('ppm') >= 300 && $this->input->get('ppm') <= 600) {
-			$statusTds = "BAIK";
-		} else if ($this->input->get('ppm') > 600 && $this->input->get('ppm') <= 900) {
-			$statusTds = "BURUK";
-		} else {
 			$statusTds = "SANGAT BURUK";
+		} else if ($this->input->get('ppm') >= 300 && $this->input->get('ppm') <= 600) {
+			$statusTds = "SANGAT AMAN";
+		} else if ($this->input->get('ppm') > 600 && $this->input->get('ppm') <= 900) {
+			$statusTds = "AMAN";
+		} else {
+			$statusTds = "TIDAK BURUK";
 		}
 
 		$data = [

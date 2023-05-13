@@ -107,14 +107,17 @@ void loop(void)
   readTDSSensor();
   readWaterFlow();
 
-  if (displayStatus == "TDS") {
+  if (displayStatus == "TDS")
+  {
     lcd.setCursor(0, 3);
     lcd.print("TDS :");
     lcd.setCursor(6, 3);
     lcd.print(statusTds);
 
     displayStatus = "PH";
-  } else {
+  }
+  else
+  {
     lcd.setCursor(0, 3);
     lcd.print("PH  :");
     lcd.setCursor(6, 3);
@@ -159,7 +162,7 @@ void readPHSensor()
 
     if (pHValue < 6)
     {
-      statuspH = "KURANG BAIK";
+      statuspH = "BURUK";
     }
     else if (pHValue >= 6 && pHValue <= 9)
     {
@@ -167,7 +170,7 @@ void readPHSensor()
     }
     else
     {
-      statuspH = "BURUK";
+      statuspH = "TIDAK AMAN";
     }
 
     Serial.print("Kondisi PH : ");
@@ -198,19 +201,19 @@ void readTDSSensor()
 
     if (tdsValue < 300)
     {
-      statusTds = "SANGAT BAIK";
+      statusTds = "SANGAT BURUK";
     }
     else if (tdsValue >= 300 && tdsValue <= 600)
     {
-      statusTds = "BAIK";
+      statusTds = "SANGAT AMAN";
     }
     else if (tdsValue > 600 && tdsValue <= 900)
     {
-      statusTds = "BURUK";
+      statusTds = "AMAN";
     }
     else
     {
-      statusTds = "SANGAT BURUK";
+      statusTds = "TIDAK AMAN";
     }
 
     Serial.print("Kondisi TDS : ");
