@@ -6,13 +6,12 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if (empty($this->session->userdata('log_admin'))) {
+        if (empty($this->session->userdata('log_login'))) {
             $this->session->set_flashdata('flash-error', 'Anda Belum Login');
             redirect('auth', 'refresh');
         }
 
         $this->load->model('M_Admin', 'admin');
-
 
         $this->db->where('id', $this->session->userdata('id'));
         $this->dt_admin = $this->db->get('admin')->row();
@@ -30,6 +29,10 @@ class Admin extends CI_Controller
 
     public function manageUser()
     {
+        if ($this->dt_admin->role_id == 2) {
+            $this->session->set_flashdata('flash-error', 'Access denied!');
+            redirect('dashboard', 'refresh');
+        }
 
         $data = [
             'title' => 'Manage User',
@@ -42,6 +45,11 @@ class Admin extends CI_Controller
 
     public function addUser()
     {
+        if ($this->dt_admin->role_id == 2) {
+            $this->session->set_flashdata('flash-error', 'Access denied!');
+            redirect('dashboard', 'refresh');
+        }
+
         $data = [
             'name'  => $this->input->post('name'),
             'username'  => $this->input->post('username'),
@@ -56,6 +64,11 @@ class Admin extends CI_Controller
 
     public function deleteUser($id)
     {
+        if ($this->dt_admin->role_id == 2) {
+            $this->session->set_flashdata('flash-error', 'Access denied!');
+            redirect('dashboard', 'refresh');
+        }
+
         $this->db->where('id', $id);
         $this->db->delete('admin');
         $this->session->set_flashdata('flash-sukses', 'Berhasil dihapus!');
@@ -64,6 +77,11 @@ class Admin extends CI_Controller
 
     public function resetPassUser($id)
     {
+        if ($this->dt_admin->role_id == 2) {
+            $this->session->set_flashdata('flash-error', 'Access denied!');
+            redirect('dashboard', 'refresh');
+        }
+
         $data = [
             'password'  => password_hash('user123', PASSWORD_BCRYPT),
         ];
@@ -76,6 +94,11 @@ class Admin extends CI_Controller
 
     public function realtime()
     {
+        if ($this->dt_admin->role_id == 2) {
+            $this->session->set_flashdata('flash-error', 'Access denied!');
+            redirect('dashboard', 'refresh');
+        }
+
         $count = $this->db->get('sensor')->num_rows();
 
         $this->db->order_by('id', 'desc');

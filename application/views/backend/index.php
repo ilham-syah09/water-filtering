@@ -43,7 +43,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <?php if ($this->session->userdata('log_admin')) : ?>
+            <?php if ($this->dt_admin->role_id == 1) : ?>
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('admin'); ?>">
@@ -73,13 +73,11 @@
                 </li>
             <?php else : ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('user'); ?>">
+                    <a class="nav-link" href="<?= base_url('dashboard'); ?>">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
                 </li>
             <?php endif; ?>
-
-
 
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">

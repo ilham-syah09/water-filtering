@@ -6,7 +6,7 @@ class Rekap extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if (empty($this->session->userdata('log_admin'))) {
+        if (empty($this->session->userdata('log_login'))) {
             $this->session->set_flashdata('flash-error', 'Anda Belum Login');
             redirect('auth', 'refresh');
         }
@@ -15,6 +15,11 @@ class Rekap extends CI_Controller
         $this->dt_admin = $this->db->get('admin')->row();
 
         $this->load->model('M_Admin', 'admin');
+
+        if ($this->dt_admin->role_id == 2) {
+            $this->session->set_flashdata('flash-error', 'Access denied!');
+            redirect('dashboard', 'refresh');
+        }
     }
 
     // fungsi menampilkan halaman rekap dan menampilkan data sensor
