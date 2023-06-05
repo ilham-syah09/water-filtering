@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Bulan Mei 2023 pada 09.24
+-- Waktu pembuatan: 05 Jun 2023 pada 06.42
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.1
 
@@ -32,6 +32,7 @@ CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
+  `role_id` int(1) NOT NULL,
   `password` varchar(100) NOT NULL,
   `image` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,8 +41,9 @@ CREATE TABLE `admin` (
 -- Dumping data untuk tabel `admin`
 --
 
-INSERT INTO `admin` (`id`, `name`, `username`, `password`, `image`) VALUES
-(1, 'admin', 'admin', '$2y$10$ZdZIpysS8TWn8cTr5Awao.nEY4RXnkUYijO1YWhqSUQGgfrRLzFyi', 'default.jpg');
+INSERT INTO `admin` (`id`, `name`, `username`, `role_id`, `password`, `image`) VALUES
+(1, 'admin', 'admin', 1, '$2y$10$uerWeERaeKa/0h9MdNXEm.aRZ4mYuXE1JdK53sQboMb/mViY4oiy2', 'default.jpg'),
+(3, 'bung sandy', 'sandy', 2, '$2y$10$xJE0wx0tNVc.JZcqUBUQxOyRowkur7WHb3wpucbnCuS6mAGygrDma', 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,7 @@ ALTER TABLE `sensor`
 -- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `sensor`

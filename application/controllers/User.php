@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller
+class User extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        if (empty($this->session->userdata('data_login'))) {
+        if (empty($this->session->userdata('log_user'))) {
             $this->session->set_flashdata('flash-error', 'Anda Belum Login');
             redirect('auth', 'refresh');
         }
@@ -21,8 +21,8 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $data = [
-            'title' => 'Dashboard',
-            'page'  => 'backend/dashboard',
+            'title' => 'Dashboard User',
+            'page'  => 'backend/user',
         ];
 
         $this->load->view('backend/index', $data);

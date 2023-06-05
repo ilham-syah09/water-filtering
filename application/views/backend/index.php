@@ -43,28 +43,43 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('dashboard'); ?>">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+            <?php if ($this->session->userdata('log_admin')) : ?>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('admin'); ?>">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Data
-            </div>
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Data
+                </div>
 
-            <!-- Nav Item - Tables -->
+                <!-- Nav Item - Tables -->
 
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('rekap'); ?>">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Rekap</span></a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('rekap'); ?>">
+                        <i class="fas fa-fw fa-book"></i>
+                        <span>Rekap</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('admin/manageUser'); ?>">
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Manage User</span></a>
+                </li>
+            <?php else : ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('user'); ?>">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+            <?php endif; ?>
+
+
 
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">

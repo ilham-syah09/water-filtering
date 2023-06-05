@@ -6,7 +6,7 @@ class Rekap extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if (empty($this->session->userdata('data_login'))) {
+        if (empty($this->session->userdata('log_admin'))) {
             $this->session->set_flashdata('flash-error', 'Anda Belum Login');
             redirect('auth', 'refresh');
         }
