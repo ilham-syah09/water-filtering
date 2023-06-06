@@ -94,11 +94,6 @@ class Admin extends CI_Controller
 
     public function realtime()
     {
-        if ($this->dt_admin->role_id == 2) {
-            $this->session->set_flashdata('flash-error', 'Access denied!');
-            redirect('dashboard', 'refresh');
-        }
-
         $count = $this->db->get('sensor')->num_rows();
 
         $this->db->order_by('id', 'desc');
