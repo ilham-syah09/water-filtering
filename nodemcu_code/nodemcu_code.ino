@@ -13,7 +13,7 @@ String simpan = "http://waterfiltering.phbcomputerc.my.id/data/save?pH=";
 String respon = "";
 
 #include <SoftwareSerial.h>
-SoftwareSerial mySerial(D7, D8);
+SoftwareSerial mySerial(3, 1);
 
 String data;
 char c;
